@@ -59,17 +59,6 @@ needs attribution + share-alike for derivatives.
   "tags": ["robot", "mascot"]
 }
 ```
-
-Ground rules:
-
-- **Original work only** — you made it, or it's clearly licensed for reuse and
-  you say where it's from.
-- **License** must be one of `CC0-1.0`, `CC-BY-4.0`, `CC-BY-SA-4.0`.
-- **Silkscreen-appropriate**: single-colour line/solid art. If it needs
-  gradients, it won't print.
-- Keep files under ~1 MB each; no build outputs or zips.
-- Nothing offensive, no logos/trademarks you don't own.
-
 ## How this repo works
 
 `index.json` at the root is the machine-readable gallery manifest. CI
