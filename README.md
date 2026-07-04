@@ -9,12 +9,20 @@ every merged piece shows up there automatically.
 
 Each piece ships as a KiCad footprint (`.kicad_mod`) and/or an SVG source:
 
-- **KiCad**: copy the `.kicad_mod` into a footprint library (or add this repo's
-  `art/` folders as a library path), then place it like any footprint. The art
-  lives on `F.SilkS`; flip it to the back or rescale it in the footprint editor
-  as needed.
-- **SVG**: import via KiCad's vector graphics import (ctrl-shift-f or file->import->graphics)
-  SVGs imported this way can be scaled up and down, at least in KiCad 10.
+- **KiCad**: the .kicad_mod files are kicads footprint files.
+  They are usually stored in "libraries" (folders/directories holding .kicad_mods
+  which you can import by (in pcb editor top left, preferences->manage footprint libraries->
+  choose global or project-specific->add existing. and choose a folder/directory
+  containing the .kicad_mod files you want to put into your pcb.
+  Done this way you can have them stored by kicad and just throw them on any pcb you
+  want just like you would any other part ("A" to place footprint and find your library)
+  Done this way they can also easily hold layer information, ie use more layers to get more colors.
+  Done this way they are not scalable as far as I know though.
+- **SVG**: The simplest way is to import via KiCad's vector graphics import in the pcb editor:
+  (ctrl-shift-f or file->import->graphics) and select the layer you want it on. SVGs imported this way
+  can be scaled up and down, at least in KiCad 10. Each import can only import one layer though
+  most people usually just import it as front silkscreen.
+  SVGs can also be done using gerbolyze https://github.com/jaseg/gerbolyze.
 
 Check the piece's license (shown in the gallery and in its `piece.json`)
 before shipping it on a commercial board — `CC0-1.0` is do-anything,
