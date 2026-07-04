@@ -23,6 +23,7 @@ const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 const SOURCE_EXT = /\.(kicad_mod|svg)$/i;
 const FILE_EXT = /\.(kicad_mod|svg|dxf|gbr|png)$/i;
 const MAX_FILE_BYTES = 1024 * 1024;
+const MAX_PHOTO_BYTES = 2 * 1024 * 1024; // board photos may be larger
 
 const checkOnly = process.argv.includes('--check');
 const errors = [];
@@ -75,14 +76,23 @@ for (const slug of dirs) {
   });
   if (!preview) fail(slug, 'needs a preview image (preview.svg / preview.png / preview.jpg)');
 
-  const files = entries.filter(function (f) { return f !== preview; }).sort();
+  // Optional photo of the actual manufactured board; the gallery shows it
+  // instead of the rendered preview when present.
+  const photo = ['photo.jpg', 'photo.jpeg', 'photo.png'].find(function (f) {
+    return entries.indexOf(f) !== -1;
+  });
+
+  const files = entries.filter(function (f) { return f !== preview && f !== photo; }).sort();
   const stray = files.filter(function (f) { return !FILE_EXT.test(f); });
-  if (stray.length) fail(slug, 'unexpected file(s): ' + stray.join(', ') + ' (allowed: kicad_mod, svg, dxf, gbr, png)');
+  if (stray.length) fail(slug, 'unexpected file(s): ' + stray.join(', ') + ' (allowed: kicad_mod, svg, dxf, gbr, png, plus photo.jpg/jpeg/png)');
   if (!files.some(function (f) { return SOURCE_EXT.test(f); })) {
     fail(slug, 'needs at least one source file (.kicad_mod or .svg) besides the preview');
   }
   for (const f of entries) {
-    if (fs.statSync(path.join(dir, f)).size > MAX_FILE_BYTES) fail(slug, f + ' is over 1 MB');
+    const limit = f === photo ? MAX_PHOTO_BYTES : MAX_FILE_BYTES;
+    if (fs.statSync(path.join(dir, f)).size > limit) {
+      fail(slug, f + ' is over ' + (limit / 1024 / 1024) + ' MB');
+    }
   }
 
   let added = meta.added;
@@ -97,6 +107,7 @@ for (const slug of dirs) {
     description: meta.description ? String(meta.description).trim() : undefined,
     tags: Array.isArray(meta.tags) ? meta.tags.map(String) : [],
     preview: 'art/' + slug + '/' + preview,
+    photo: photo ? 'art/' + slug + '/' + photo : undefined,
     files: files.map(function (f) { return 'art/' + slug + '/' + f; }),
     added: added
   });

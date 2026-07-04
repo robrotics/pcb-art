@@ -26,8 +26,14 @@ needs attribution + share-alike for derivatives.
 1. Fork this repo.
 2. Add a folder `art/<your-slug>/` (lowercase letters, digits, dashes) containing:
    - `piece.json` — copy `art/_template/piece.json` and fill it in
-   - a preview image — `preview.svg` or `preview.png` (roughly 4:3, this is the gallery card)
+   - a preview image — `preview.svg` (preferred) or `preview.png`. **The preview
+     must contain only the artwork itself** — white/cream strokes on a
+     transparent background, no board behind it. The gallery draws a green PCB
+     behind your art automatically.
    - the art itself — at least one `.kicad_mod` or `.svg` source file
+   - *(optional)* `photo.jpg` / `photo.jpeg` / `photo.png` — a photo of the art
+     on a real manufactured board (max 2 MB). If present, the gallery shows
+     your photo instead of the rendered preview.
 3. Open a pull request. CI validates the folder; a maintainer reviews and merges.
 
 `piece.json` fields:
