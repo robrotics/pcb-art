@@ -18,6 +18,9 @@ const { execSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 const ART = path.join(ROOT, 'art');
 const OUT = path.join(ROOT, 'index.json');
+// All .kicad_mod files are also aggregated into one KiCad footprint library
+// folder, so users can add the repo as a single library and get every piece.
+const PRETTY = path.join(ROOT, 'robrotics-art.pretty');
 const LICENSES = ['CC0-1.0', 'CC-BY-4.0', 'CC-BY-SA-4.0'];
 const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 const SOURCE_EXT = /\.(kicad_mod|svg)$/i;
@@ -113,6 +116,18 @@ for (const slug of dirs) {
   });
 }
 
+// Footprint filenames must be unique across pieces — they all land together
+// in robrotics-art.pretty/ (KiCad names footprints by file name).
+const modSeen = {};
+for (const pc of pieces) {
+  for (const f of pc.files) {
+    if (!/\.kicad_mod$/i.test(f)) continue;
+    const base = f.split('/').pop().toLowerCase();
+    if (modSeen[base]) fail(pc.id, base + ' collides with the same filename in art/' + modSeen[base] + ' — rename it');
+    else modSeen[base] = pc.id;
+  }
+}
+
 if (errors.length) {
   console.error('validation failed:\n  ' + errors.join('\n  '));
   process.exit(1);
@@ -135,3 +150,16 @@ if (fs.existsSync(OUT) && fs.readFileSync(OUT, 'utf8') === json) {
   fs.writeFileSync(OUT, json);
   console.log('wrote index.json (' + pieces.length + ' piece(s))');
 }
+
+// Rebuild the aggregated KiCad library from scratch so removals propagate.
+fs.rmSync(PRETTY, { recursive: true, force: true });
+fs.mkdirSync(PRETTY);
+let mods = 0;
+for (const pc of pieces) {
+  for (const f of pc.files) {
+    if (!/\.kicad_mod$/i.test(f)) continue;
+    fs.copyFileSync(path.join(ROOT, f), path.join(PRETTY, f.split('/').pop()));
+    mods++;
+  }
+}
+console.log('robrotics-art.pretty: ' + mods + ' footprint(s)');
