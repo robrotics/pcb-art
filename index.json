@@ -1,5 +1,5 @@
 {
-  "ref": "51e5ad11a25d9d55833ebf2f1ec6f41566fa3eeb",
+  "ref": "54a105355ff5e3f3e8c0fc0175fee76808212479",
   "pieces": [
     {
       "id": "robro-bot",
@@ -15,6 +15,19 @@
       "preview": "art/robro-bot/preview.svg",
       "files": [
         "art/robro-bot/robro-bot.kicad_mod"
+      ],
+      "added": "2026-07-04"
+    },
+    {
+      "id": "sagelavender",
+      "title": "sage lavender",
+      "author": "your name or handle",
+      "license": "CC0-1.0",
+      "description": "john pork is calling",
+      "tags": [],
+      "preview": "art/sagelavender/preview.jpg",
+      "files": [
+        "art/sagelavender/sage_in_field.svg"
       ],
       "added": "2026-07-04"
     }
