@@ -25,8 +25,8 @@ const LICENSES = ['CC0-1.0', 'CC-BY-4.0', 'CC-BY-SA-4.0'];
 const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 const SOURCE_EXT = /\.(kicad_mod|svg)$/i;
 const FILE_EXT = /\.(kicad_mod|svg|dxf|gbr|png)$/i;
-const MAX_FILE_BYTES = 1024 * 1024;
-const MAX_PHOTO_BYTES = 2 * 1024 * 1024; // board photos may be larger
+const MAX_FILE_BYTES = 3 * 1024 * 1024;
+const MAX_PHOTO_BYTES = 3 * 1024 * 1024;
 
 const checkOnly = process.argv.includes('--check');
 const errors = [];
