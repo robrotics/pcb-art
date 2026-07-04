@@ -13,8 +13,8 @@ Each piece ships as a KiCad footprint (`.kicad_mod`) and/or an SVG source:
   `art/` folders as a library path), then place it like any footprint. The art
   lives on `F.SilkS`; flip it to the back or rescale it in the footprint editor
   as needed.
-- **SVG**: import via KiCad's *Image Converter* (bitmap2component takes SVG →
-  footprint) or your EDA tool's silkscreen import.
+- **SVG**: import via KiCad's vector graphics import (ctrl-shift-f or file->import->graphics)
+  SVGs imported this way can be scaled up and down, at least in KiCad 10.
 
 Check the piece's license (shown in the gallery and in its `piece.json`)
 before shipping it on a commercial board — `CC0-1.0` is do-anything,
