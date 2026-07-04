@@ -94,7 +94,7 @@ for (const slug of dirs) {
   for (const f of entries) {
     const limit = f === photo ? MAX_PHOTO_BYTES : MAX_FILE_BYTES;
     if (fs.statSync(path.join(dir, f)).size > limit) {
-      fail(slug, f + ' is over ' + (limit / 1024 / 1024) + ' MB');
+      fail(slug, f + ' is over ' + (limit / (3* 1024 * 1024)) + ' MB');
     }
   }
 
