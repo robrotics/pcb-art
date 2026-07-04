@@ -74,10 +74,16 @@ for (const slug of dirs) {
   if (meta.description != null && typeof meta.description !== 'string') fail(slug, '"description" must be a string');
 
   const entries = fs.readdirSync(dir).filter(function (f) { return f !== 'piece.json'; });
-  const preview = ['preview.svg', 'preview.png', 'preview.jpg'].find(function (f) {
+  let preview = ['preview.svg', 'preview.png', 'preview.jpg'].find(function (f) {
     return entries.indexOf(f) !== -1;
   });
-  if (!preview) fail(slug, 'needs a preview image (preview.svg / preview.png / preview.jpg)');
+  // No dedicated preview? Fall back to the first source SVG — the gallery
+  // shows it as-is and marks the card so visitors know.
+  const previewIsSource = !preview;
+  if (!preview) {
+    preview = entries.filter(function (f) { return /\.svg$/i.test(f); }).sort()[0];
+  }
+  if (!preview) fail(slug, 'needs a preview image (preview.svg / preview.png / preview.jpg) or an .svg source file to stand in for one');
 
   // Optional photo of the actual manufactured board; the gallery shows it
   // instead of the rendered preview when present.
@@ -85,7 +91,10 @@ for (const slug of dirs) {
     return entries.indexOf(f) !== -1;
   });
 
-  const files = entries.filter(function (f) { return f !== preview && f !== photo; }).sort();
+  // A source SVG doubling as the preview stays in the download list.
+  const files = entries.filter(function (f) {
+    return f !== photo && (previewIsSource || f !== preview);
+  }).sort();
   const stray = files.filter(function (f) { return !FILE_EXT.test(f); });
   if (stray.length) fail(slug, 'unexpected file(s): ' + stray.join(', ') + ' (allowed: kicad_mod, svg, dxf, gbr, png, plus photo.jpg/jpeg/png)');
   if (!files.some(function (f) { return SOURCE_EXT.test(f); })) {
@@ -94,7 +103,7 @@ for (const slug of dirs) {
   for (const f of entries) {
     const limit = f === photo ? MAX_PHOTO_BYTES : MAX_FILE_BYTES;
     if (fs.statSync(path.join(dir, f)).size > limit) {
-      fail(slug, f + ' is over ' + (limit / (3* 1024 * 1024)) + ' MB');
+      fail(slug, f + ' is over ' + (limit / (1024 * 1024)) + ' MB');
     }
   }
 
@@ -110,6 +119,7 @@ for (const slug of dirs) {
     description: meta.description ? String(meta.description).trim() : undefined,
     tags: Array.isArray(meta.tags) ? meta.tags.map(String) : [],
     preview: 'art/' + slug + '/' + preview,
+    previewIsSource: previewIsSource || undefined,
     photo: photo ? 'art/' + slug + '/' + photo : undefined,
     files: files.map(function (f) { return 'art/' + slug + '/' + f; }),
     added: added
