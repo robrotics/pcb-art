@@ -1,6 +1,18 @@
 {
-  "ref": "6d976b2d5e9c9acd01b6836d205f1235978916e7",
+  "ref": "6044eff0e8a6e77cedcaf7e28048ddc11dfbab97",
   "pieces": [
+    {
+      "id": "lainwithhand",
+      "title": "My Piece Title",
+      "author": "your name or handle",
+      "description": "optional one-liner shown on the gallery card",
+      "tags": [],
+      "preview": "art/lainwithhand/preview.jpg",
+      "files": [
+        "art/lainwithhand/lainwithand.kicad_mod"
+      ],
+      "added": "2026-07-05"
+    },
     {
       "id": "robro-bot",
       "title": "Robro Bot",
