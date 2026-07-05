@@ -55,16 +55,6 @@ Each piece ships as a KiCad footprint (`.kicad_mod`) and/or an SVG source:
   "tags": ["robot", "mascot"]
 }
 ```
-
-Ground rules:
-
-- **Original work only** — you made it, or it's clearly free to reuse and
-  you say where it's from.
-- **Silkscreen-appropriate**: single-colour line/solid art. If it needs
-  gradients, it won't print.
-- Keep files under 3 MB each; no build outputs or zips.
-- Nothing offensive, no logos/trademarks you don't own.
-
 ## How this repo works
 
 `index.json` at the root is the machine-readable gallery manifest. CI
