@@ -28,11 +28,6 @@ Each piece ships as a KiCad footprint (`.kicad_mod`) and/or an SVG source:
   most people usually just import it as front silkscreen.
   SVGs can also be done using gerbolyze https://github.com/jaseg/gerbolyze.
 
-Check the piece's license (shown in the gallery and in its `piece.json`)
-before shipping it on a commercial board — `CC0-1.0` is do-anything,
-`CC-BY-4.0` needs attribution (silkscreen credit or docs), `CC-BY-SA-4.0`
-needs attribution + share-alike for derivatives.
-
 ## Submitting your art
 
 1. Fork this repo.
@@ -56,7 +51,6 @@ needs attribution + share-alike for derivatives.
 {
   "title": "Robro Bot",
   "author": "your name or handle",
-  "license": "CC0-1.0",
   "description": "optional one-liner shown on the card",
   "tags": ["robot", "mascot"]
 }
@@ -64,9 +58,8 @@ needs attribution + share-alike for derivatives.
 
 Ground rules:
 
-- **Original work only** — you made it, or it's clearly licensed for reuse and
+- **Original work only** — you made it, or it's clearly free to reuse and
   you say where it's from.
-- **License** must be one of `CC0-1.0`, `CC-BY-4.0`, `CC-BY-SA-4.0`.
 - **Silkscreen-appropriate**: single-colour line/solid art. If it needs
   gradients, it won't print.
 - Keep files under 3 MB each; no build outputs or zips.

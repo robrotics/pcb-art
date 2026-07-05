@@ -21,7 +21,6 @@ const OUT = path.join(ROOT, 'index.json');
 // All .kicad_mod files are also aggregated into one KiCad footprint library
 // folder, so users can add the repo as a single library and get every piece.
 const PRETTY = path.join(ROOT, 'robrotics-art.pretty');
-const LICENSES = ['CC0-1.0', 'CC-BY-4.0', 'CC-BY-SA-4.0'];
 const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 const SOURCE_EXT = /\.(kicad_mod|svg)$/i;
 const FILE_EXT = /\.(kicad_mod|svg|dxf|gbr|png)$/i;
@@ -69,7 +68,6 @@ for (const slug of dirs) {
 
   if (typeof meta.title !== 'string' || !meta.title.trim()) fail(slug, 'piece.json needs a non-empty "title"');
   if (typeof meta.author !== 'string' || !meta.author.trim()) fail(slug, 'piece.json needs a non-empty "author"');
-  if (LICENSES.indexOf(meta.license) === -1) fail(slug, '"license" must be one of: ' + LICENSES.join(', '));
   if (meta.tags != null && !Array.isArray(meta.tags)) fail(slug, '"tags" must be an array');
   if (meta.description != null && typeof meta.description !== 'string') fail(slug, '"description" must be a string');
 
@@ -115,7 +113,6 @@ for (const slug of dirs) {
     id: slug,
     title: String(meta.title).trim(),
     author: String(meta.author).trim(),
-    license: meta.license,
     description: meta.description ? String(meta.description).trim() : undefined,
     tags: Array.isArray(meta.tags) ? meta.tags.map(String) : [],
     preview: 'art/' + slug + '/' + preview,

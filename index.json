@@ -5,7 +5,6 @@
       "id": "robro-bot",
       "title": "Robro Bot",
       "author": "robrotics",
-      "license": "CC0-1.0",
       "description": "The robrotics mascot bot head — a demo piece showing the submission format.",
       "tags": [
         "robot",
@@ -22,7 +21,6 @@
       "id": "sagelavender",
       "title": "sage lavender",
       "author": "your name or handle",
-      "license": "CC0-1.0",
       "description": "john pork is calling",
       "tags": [],
       "preview": "art/sagelavender/preview.jpg",
